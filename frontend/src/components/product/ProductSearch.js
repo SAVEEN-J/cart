@@ -1,9 +1,9 @@
 
 import { Fragment, useEffect } from "react";
 import {useDispatch, useSelector} from "react-redux";
-import MetaData from ".././layout/MetaData";
-import { getProducts } from "../../actions/productsActions";
-import Loader from ".././layout/Loder";
+import MetaData from "../layout/MetaData";
+import { getProducts } from "../../actions/productActions";
+import Loader from "../layout/Loder";
 import Product from ".././product/product";
 import {Slide, toast} from 'react-toastify'
 import Pagination from "react-js-pagination";
@@ -13,8 +13,7 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import Tooltip from 'rc-tooltip';
 import  'rc-tooltip/assets/bootstrap.css'
-import e from "express";
-import { version } from "mongoose";
+
 
 
 export default function ProductSearch() {

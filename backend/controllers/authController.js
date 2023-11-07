@@ -7,20 +7,17 @@ const catchAsyncError = require('../middlewares/catchAsyncError');
 
 //Register User - /api/v1/register
 exports.registerUser = catchAsyncError(async (req, res, next) => {
-    const {name, email, password, avatar} = req.body
+    const {name, email, password} = req.body
    
+    let avatar;
+    let BASE_URL = process.env.BACKEND_URL;
+    if(process.env.NODE_ENV === "production"){
+        BASE_URL = `${req.protocol}://${req.get('host')}`
+    }
 
-
-    // let avatar;
-    
-    // let BASE_URL = process.env.BACKEND_URL;
-    // if(process.env.NODE_ENV === "production"){
-    //     BASE_URL = `${req.protocol}://${req.get('host')}`
-    // }
-
-    // if(req.file){
-    //     avatar = `${BASE_URL}/uploads/user/${req.file.originalname}`
-    // }
+    if(req.file){
+        avatar = `${BASE_URL}/uploads/user/${req.file.originalname}`
+    }
 
     const user = await User.create({
         name,
@@ -174,16 +171,16 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
     }
 
 
-    // let avatar;
-    // let BASE_URL = process.env.BACKEND_URL;
-    // if(process.env.NODE_ENV === "production"){
-    //     BASE_URL = `${req.protocol}://${req.get('host')}`
-    // }
+    let avatar;
+    let BASE_URL = process.env.BACKEND_URL;
+    if(process.env.NODE_ENV === "production"){
+        BASE_URL = `${req.protocol}://${req.get('host')}`
+    }
 
-    // if(req.file){
-    //     avatar = `${BASE_URL}/uploads/user/${req.file.originalname}`
-    //     newUserData = {...newUserData,avatar }
-    // }
+    if(req.file){
+        avatar = `${BASE_URL}/uploads/user/${req.file.originalname}`
+        newUserData = {...newUserData,avatar }
+    }
 
     const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
         new: true,

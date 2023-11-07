@@ -33,6 +33,34 @@ const {actions , reducer} = productsSlice;
 export const {productsRequest,productsSuccess,productsFail} = actions;
 export default reducer;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // import { createSlice } from "@reduxjs/toolkit";
 
 

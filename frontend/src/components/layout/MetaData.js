@@ -1,11 +1,10 @@
-import { Helmet } from "react-helmet-async";
+
+import { Helmet } from "react-helmet-async"
 
 export default function MetaData({title}) {
-    return(
+    return (
         <Helmet>
-            <title>{`${title} - SAVIcart`}</title>
+            <title>{`${title} - JVLcart`}</title>
         </Helmet>
-
     )
-    
 }

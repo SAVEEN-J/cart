@@ -1,12 +1,12 @@
 import axios from 'axios';
+import { productsFail, productsSuccess, productsRequest } from '../slices/productsSlice';
 import { productFail, productSuccess, productRequest } from '../slices/productSlice';
-// import { productFail, productSuccess, productRequest, createReviewRequest, createReviewSuccess, createReviewFail, newProductRequest, newProductSuccess, newProductFail, deleteProductRequest, deleteProductSuccess, deleteProductFail, updateProductRequest, updateProductSuccess, updateProductFail, reviewsRequest, reviewsSuccess, reviewsFail, deleteReviewRequest, deleteReviewSuccess, deleteReviewFail } from '../slices/productSlice';
 
- export const getProduct = (keyword, price, category,  currentPage) => async (dispatch) => {
-    // export const getProduct  = id => async (dispatch) => {
+export const getProducts = (keyword,price,category,rating, currentPage) => async (dispatch) => {
+    // export const getProducts  = async (dispatch) => {
     try {  
-        dispatch(productRequest()) 
-        let link = `/api/v1/products?page=${currentPage}`;
+        dispatch(productsRequest()) 
+      let link = `/api/v1/products?page=${currentPage}`;
         
         if(keyword) {
             link += `&keyword=${keyword}`
@@ -17,12 +17,27 @@ import { productFail, productSuccess, productRequest } from '../slices/productSl
         if(category) {
             link += `&category=${category}`
         }
-        // if(rating) {
-        //     link += `&ratings=${rating}`
-        // }
-        const { data }  =  await axios.get(link);
-        //  const { data }  =  await axios.get(`/api/v1/product/${id}`);
+        if(rating) {
+            link += `&ratings=${rating}`
+        }
+        
+     const { data }  =  await axios.get(link);
+     
 
+        dispatch(productsSuccess(data))
+    } catch (error) {
+        //handle error
+        dispatch(productsFail(error.response.data.message))
+    }
+    
+}
+
+
+export const getProduct = id => async (dispatch) => {
+
+    try {  
+        dispatch(productRequest()) 
+        const { data }  =  await axios.get(`/api/v1/product/${id}`);
         dispatch(productSuccess(data))
     } catch (error) {
         //handle error
@@ -30,20 +45,6 @@ import { productFail, productSuccess, productRequest } from '../slices/productSl
     }
     
 }
-
-
-// export const getProduct = id => async (dispatch) => {
-
-//     try {  
-//         dispatch(productRequest()) 
-//         const { data }  =  await axios.get(`/api/v1/product/${id}`);
-//         dispatch(productSuccess(data))
-//     } catch (error) {
-//         //handle error
-//         dispatch(productFail(error.response.data.message))
-//     }
-    
-// }
 
 // export const createReview = reviewData => async (dispatch) => {
 
