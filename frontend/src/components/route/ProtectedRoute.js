@@ -15,7 +15,7 @@ export default function ProtectedRoute ({children}) {
 
 // import { useSelector } from 'react-redux';
 // import {Navigate} from 'react-router-dom';
-// import Loader from '../layouts/Loader';
+// import Loader from '../layout/Loader';
 
 // export default function ProtectedRoute ({children, isAdmin}) {
 //     const { isAuthenticated, loading, user } = useSelector(state => state.authState)
@@ -31,9 +31,9 @@ export default function ProtectedRoute ({children}) {
 //         return children;
 //     }
 
-//     // if(loading) {
-//     //     return <Loader/>
-//     // }
+//     if(loading) {
+//         return <Loader />
+//     }
 
    
 // }

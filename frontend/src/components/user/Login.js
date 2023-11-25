@@ -1,7 +1,7 @@
 import {Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearAuthError, login } from '../../actions/userActions';
-import MetaData from '../layout/MetaData';
+import MetaData from '../layouts/MetaData';
 import { toast } from 'react-toastify';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
  export default function Login() {
