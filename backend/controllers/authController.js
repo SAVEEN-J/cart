@@ -1,15 +1,16 @@
 const catchAsyncError = require('../middlewares/catchAsyncError');
- const User = require('../models/userModel');
- const sendEmail = require('../utils/email');
- const ErrorHandler = require('../utils/errorHandler');
- const sendToken = require('../utils/jwt');
- const crypto = require('crypto')
+const User = require('../models/userModel');
+const sendEmail = require('../utils/email');
+const ErrorHandler = require('../utils/errorHandler');
+const sendToken = require('../utils/jwt');
+const crypto = require('crypto')
 
 //Register User - /api/v1/register
 exports.registerUser = catchAsyncError(async (req, res, next) => {
-    const {name, email, password} = req.body
-   
+    const {name, email, password } = req.body
+
     let avatar;
+    
     let BASE_URL = process.env.BACKEND_URL;
     if(process.env.NODE_ENV === "production"){
         BASE_URL = `${req.protocol}://${req.get('host')}`
@@ -52,7 +53,7 @@ exports.loginUser = catchAsyncError(async (req, res, next) => {
     sendToken(user, 201, res)
     
 })
-                                                        
+
 //Logout - /api/v1/logout
 exports.logoutUser = (req, res, next) => {
         res.cookie('token',null, {
@@ -62,10 +63,10 @@ exports.logoutUser = (req, res, next) => {
         .status(200)
         .json({
             success: true,
-            message: "Logged out"
+            message: "Loggedout"
         })
 
-}  
+}
 
 //Forgot Password - /api/v1/password/forgot
 exports.forgotPassword = catchAsyncError( async (req, res, next)=>{
@@ -93,7 +94,7 @@ exports.forgotPassword = catchAsyncError( async (req, res, next)=>{
     try{
         sendEmail({
             email: user.email,
-            subject: "Saveencart Password Recovery",
+            subject: "JVLcart Password Recovery",
             message
         })
 
@@ -170,7 +171,6 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
         email: req.body.email
     }
 
-
     let avatar;
     let BASE_URL = process.env.BACKEND_URL;
     if(process.env.NODE_ENV === "production"){
@@ -203,7 +203,7 @@ exports.getAllUsers = catchAsyncError(async (req, res, next) => {
    })
 })
 
-//Admin: Get Specific User - api/v1/admin/user/:id     64fbe32a28f6a22e17f37b70
+//Admin: Get Specific User - api/v1/admin/user/:id
 exports.getUser = catchAsyncError(async (req, res, next) => {
     const user = await User.findById(req.params.id);
     if(!user) {
@@ -234,13 +234,13 @@ exports.updateUser = catchAsyncError(async (req, res, next) => {
     })
 })
 
-//Admin: Delete User - api/v1/admin/user/:id     
+//Admin: Delete User - api/v1/admin/user/:id
 exports.deleteUser = catchAsyncError(async (req, res, next) => {
     const user = await User.findById(req.params.id);
     if(!user) {
         return next(new ErrorHandler(`User not found with this id ${req.params.id}`))
     }
-    await user.deleteOne();
+    await user.remove();
     res.status(200).json({
         success: true,
     })

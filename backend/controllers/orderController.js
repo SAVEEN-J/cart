@@ -1,28 +1,28 @@
 const catchAsyncError = require('../middlewares/catchAsyncError');
 const Order = require('../models/orderModel');
-// const Product = require('../models/productModel');
-// const ErrorHandler = require('../utils/errorHandler');
+const Product = require('../models/productModel');
+const ErrorHandler = require('../utils/errorHandler');
 //Create New Order - api/v1/order/new
 exports.newOrder =  catchAsyncError( async (req, res, next) => {
     const {
         orderItems,
         shippingInfo,
         itemsPrice,
-        taxPrice, 
+        taxPrice,
         shippingPrice,
         totalPrice,
         paymentInfo
     } = req.body;
 
     const order = await Order.create({
-        orderItems, 
+        orderItems,
         shippingInfo,
         itemsPrice,
         taxPrice,
         shippingPrice,
         totalPrice,
         paymentInfo,
-        paidAt: Date.now(), 
+        paidAt: Date.now(),
         user: req.user.id
     })
 
@@ -107,7 +107,7 @@ exports.deleteOrder = catchAsyncError(async (req, res, next) => {
         return next(new ErrorHandler(`Order not found with this id: ${req.params.id}`, 404))
     }
 
-    await order.deleteOne();
+    await order.remove();
     res.status(200).json({
         success: true
     })
