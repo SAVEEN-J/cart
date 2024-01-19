@@ -16,14 +16,9 @@ const upload = multer({storage: multer.diskStorage({
 
 
 router.route('/products').get( getProducts);
-router.route('/product/:id')
-                            .get(getSingleProduct);
-            
-        
-router.route('/review').put(isAuthenticatedUser, createReview)
+router.route('/product/:id').get(getSingleProduct);    
+router.route('/review').put(isAuthenticatedUser, createReview);
                       
-
-
 //Admin routes
 router.route('/admin/product/new').post(isAuthenticatedUser, authorizeRoles('admin'), upload.array('images'), newProduct);
 router.route('/admin/products').get(isAuthenticatedUser, authorizeRoles('admin'), getAdminProducts);

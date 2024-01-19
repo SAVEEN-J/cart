@@ -1,7 +1,9 @@
 import { Fragment, useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import { useDispatch, useSelector} from 'react-redux';
-import { useNavigate, useParams } from "react-router-dom";
+// import {  useParams } from "react-router-dom";
+ import {useParams } from "react-router-dom";
+
 import { getProduct, updateProduct } from "../../actions/productActions";
 import { clearError, clearProductUpdated } from "../../slices/productSlice";
 import { toast } from "react-toastify";
@@ -35,7 +37,7 @@ export default function UpdateProduct () {
         'Home'
     ];
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const onImagesChange = (e) => {
@@ -46,7 +48,7 @@ export default function UpdateProduct () {
             const reader = new FileReader();
 
             reader.onload = () => {
-                if(reader.readyState == 2 ) {
+                if(reader.readyState === 2 ) {
                     setImagesPreview(oldArray => [...oldArray, reader.result])
                     setImages(oldArray => [...oldArray, file])
                 }
@@ -103,7 +105,7 @@ export default function UpdateProduct () {
         }
 
         dispatch(getProduct(productId))
-    }, [isProductUpdated, error, dispatch])
+    }, [isProductUpdated, error, dispatch,productId])
 
 
     useEffect(() => {

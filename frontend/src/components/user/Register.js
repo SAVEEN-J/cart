@@ -1,6 +1,6 @@
- import {useEffect, useState} from 'react';
- import {useDispatch, useSelector } from 'react-redux'
- import { register, clearAuthError } from '../../actions/userActions'
+import {useEffect, useState} from 'react';
+import {useDispatch, useSelector } from 'react-redux'
+import { register, clearAuthError } from '../../actions/userActions'
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,14 +11,14 @@ export default function Register() {
         password: ""
     });
     const [avatar, setAvatar] = useState("");
-     const [avatarPreview, setAvatarPreview] = useState("/images/default_avatar.png");
+    const [avatarPreview, setAvatarPreview] = useState("/images/default_avatar.png");
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { loading, error, isAuthenticated } = useSelector(state => state.authState)
 
     const onChange = (e) => {
         if(e.target.name === 'avatar') {
-           const reader = new FileReader(); 
+           const reader = new FileReader();
            reader.onload = () => {
                 if(reader.readyState === 2) {
                     setAvatarPreview(reader.result);
@@ -34,7 +34,7 @@ export default function Register() {
     }
 
     const submitHandler = (e) => {
-        e.preventDefault();//avoid browser loading
+        e.preventDefault();
         const formData = new FormData();
         formData.append('name', userData.name)
         formData.append('email', userData.email)
@@ -124,7 +124,7 @@ export default function Register() {
                 id="register_button"
                 type="submit"
                 className="btn btn-block py-3"
-                 disabled={loading}
+                disabled={loading}
                 >
                 REGISTER
                 </button>

@@ -59,7 +59,7 @@ export default function Payment() {
             return
         }
 
-    },[])
+    },[shippingInfo,orderError,dispatch,navigate])
 
     const submitHandler = async (e) => {
         e.preventDefault();

@@ -32,7 +32,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
             })
             return
         }
-    },[error, isAuthenticated, dispatch, navigate])
+    },[error, isAuthenticated,redirect,dispatch, navigate])
 
     return (
         <Fragment>
